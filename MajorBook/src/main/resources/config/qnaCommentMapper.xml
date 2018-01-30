@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hb.major.model.qna.comment.QnaCommDao">
+  	
+  	<select id="qnaGetCommentList" parameterType="int" resultType="qnacommentbean">
+  		SELECT * FROM QNACOMMENT WHERE QNALISTNO=#{value} ORDER BY QNACOMMDAY DESC;
+  	</select>
+  	
+  	<insert id="qnaCommentInsertOne" parameterType="qnacommentbean">
+  		INSERT INTO QNACOMMENT(qnaCommId, qnaCommNick, qnaListNo, qnaCommContent, qnaCommDay) VALUES (#{qnaCommId}, #{qnaCommNick}, #{qnaListNo}, #{qnaCommContent}, NOW())
+  	</insert>
+  	
+  </mapper>

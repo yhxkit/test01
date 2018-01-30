@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hb.major.model.qna.QnaDao">
+  	<select id="qnaSelectAll" resultType="qnabean">
+  	SELECT * FROM QNALIST ORDER BY QNANO DESC
+  	</select>
+
+  	<select id="qnaSelectOne" parameterType="int" resultType="qnabean">
+  	SELECT * FROM QNALIST WHERE QNANO=#{value}
+  	</select>
+  	
+  	<select id="qnaSelectWhere" parameterType="String" resultType="qnabean">
+  	SELECT * FROM QNALIST WHERE QNATITLE LIKE CONCAT('%',#{value},'%') OR QNACONTENT LIKE CONCAT('%',#{value},'%') OR QNAID LIKE CONCAT('%',#{value},'%') OR QNANICK LIKE CONCAT('%',#{value},'%') ORDER BY QNANO DESC
+  	</select>
+  	
+  	<select id="qnaSelectWhereMylist" parameterType="String" resultType="qnabean">
+  	SELECT * FROM QNALIST WHERE QNAID = #{value}
+  	</select>
+  	
+  	<select id="qnaSelectPage" parameterType="int" resultType="qnabean">
+  	SELECT TEMP.* FROM (SELECT * FROM QNALIST ORDER BY QNANO DESC) TEMP ORDER BY TEMP.QNANO DESC LIMIT #{value}, 10 
+  	</select>
+  	
+	<insert id="qnaInsertOne" parameterType="qnabean">
+  	INSERT INTO QNALIST(qnaId, qnaNick, qnaTitle, qnaContent, qnaDay, qnaStatus) VALUES (#{qnaId}, #{qnaNick}, #{qnaTitle}, #{qnaContent}, now(), #{qnaStatus})
+  	</insert>
+  	
+  	<update id="qnaUpdateOne" parameterType="qnabean">
+  	UPDATE QNALIST SET QNATITLE=#{qnaTitle}, QNACONTENT=#{qnaContent}, QNASTATUS=#{qnaStatus} WHERE QNANO=#{qnaNo}
+  	</update>
+  	
+  	<delete id="qnaDeleteOne" parameterType="int">
+  	DELETE FROM QNALIST WHERE QNANO=#{value}
+  	</delete>
+  	
+  </mapper>
