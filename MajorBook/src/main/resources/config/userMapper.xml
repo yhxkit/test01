@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hb.major.model.user.UserDao">
+  	
+  	<insert id="userInsertOne" parameterType="userbean">
+  	INSERT INTO USERINFO VALUES (#{kakao_id}, #{kakao_nick}, #{kakao_profile_image}, #{kakao_thumbnail_image})
+  	</insert>
+  	
+  	<delete id="userDeleteOne" parameterType="String">
+  	DELETE FROM USERINFO WHERE KAKAO_ID=#{value}
+  	</delete>
+  	
+  	<select id="userSelectOne" parameterType="String" resultType="userbean">
+  	SELECT * FROM USERINFO WHERE KAKAO_ID LIKE CONCAT('%',#{kakao_id},'%')
+  	</select>
+  	
+  	<update id="userUpdateOne" parameterType="userbean">
+  	UPDATE USERINFO SET KAKAO_NICK=#{kakao_nick}, KAKAO_PROFILE_IMAGE=#{kakao_profile_image}, KAKAO_THUMBNAIL_IMAGE=#{kakao_thumbnail_image} WHERE KAKAO_ID=#{kakao_id}
+  	</update>
+  	
+  </mapper>

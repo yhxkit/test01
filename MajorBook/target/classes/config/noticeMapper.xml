@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.hb.major.model.notice.NoticeDao">
+  	<select id="noticeSelectAll" resultType="noticebean">
+  	SELECT * FROM NOTICELIST ORDER BY NOTICENO DESC
+  	</select>
+  	
+  	<select id="noticeSelectOne" parameterType="int" resultType="noticebean">
+  	SELECT * FROM NOTICELIST WHERE NOTICENO=#{value}
+  	</select>
+  	
+  	<select id="noticeSelectWhere" parameterType="String" resultType="noticebean">
+  	SELECT * FROM NOTICELIST WHERE NOTICETITLE LIKE CONCAT('%',#{value},'%') OR NOTICECONTENT LIKE CONCAT('%',#{value},'%') OR NOTICEID LIKE CONCAT('%',#{value},'%') OR NOTICENICK LIKE CONCAT('%',#{value},'%') ORDER BY NOTICENO DESC
+  	</select>
+  	
+  	<select id="noticeSelectPage" parameterType="int" resultType="noticebean">
+  	SELECT TEMP.* FROM (SELECT * FROM NOTICELIST ORDER BY NOTICENO DESC) TEMP ORDER BY TEMP.NOTICENO DESC LIMIT #{value}, 10 
+  	</select>
+  	
+	<insert id="noticeInsertOne" parameterType="noticebean">
+  	INSERT INTO NOTICELIST(noticeTitle, noticeContent, noticeId, noticeNick, noticeDay) VALUES (#{noticeTitle}, #{noticeContent}, #{noticeId}, #{noticeNick}, now())
+  	</insert>
+  	
+  	<update id="noticeUpdateOne" parameterType="noticebean">
+  		UPDATE NOTICELIST SET noticeTitle=#{noticeTitle}, noticeContent=#{noticeContent} WHERE NOTICENO=#{noticeNo}
+  	</update>
+  	
+  	<delete id="noticeDeleteOne" parameterType="int">
+  	DELETE FROM NOTICELIST WHERE NOTICENO=#{value}
+  	</delete>
+  	
+  </mapper>
