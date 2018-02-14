@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.hb.major.model.bbs.comment.CommentDao">
+  
+  	<select id="getCommentList" parameterType="int" resultType="commentbean">
+  		SELECT * FROM BBSCOMMENT WHERE BBSNO=#{value} ORDER BY COMMNO ASC;
+  	</select>
+  	
+  	<insert id="commentInsertOne" parameterType="commentbean">
+  		INSERT INTO BBSCOMMENT(commId, commNick, bbsNo, commContent, commDay) VALUES (#{commId}, #{commNick}, #{bbsNo}, #{commContent}, NOW())
+  	</insert>
+  	
+  	
+  </mapper>
